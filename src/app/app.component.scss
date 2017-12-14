@@ -1,0 +1,26 @@
+$lightBlue: #e6f7ff;
+$blue: #1890ff;
+header{
+    height: 60px;
+    padding: 0 50px;
+    background: #fff;
+    line-height: 60px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    .logo {
+        display: inline-block;
+        height: 60px;
+        line-height: 60px;
+        color: $blue;
+        img {
+            width: 40px;height: 40px;margin-right: 10px;
+            vertical-align: middle;
+        }
+        .main-title{
+            font-size: 18px;
+        }
+        .vice-title{
+            font-size: 14px;
+            color: #aaa;
+        }
+    }
+}
