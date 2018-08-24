@@ -1,0 +1,35 @@
+<div #uploadInterface [draggable]='true' class="upload-interface flex flex-column" [class.minimal]="minimal">
+    <!--收起状态-->
+    <ng-container *ngIf="minimal">
+        <div class="flex-1 flex minimal-progress">
+            <div class="totalProgress flex-1" (dblclick)="maximize($event)">
+                <span class="progress-text">{{totalProgress == '100.0%' ? '已完成' : totalProgress}}</span>
+                <span class="totalProgress-thumb" [style.width]="totalProgress"></span>
+            </div>
+            <a class="iconfont icon-close icon-grey" [class.disabled]="counter != 0" title="关闭" (click)="close()"></a>
+        </div>
+    </ng-container>
+    <!--展开状态-->
+    <ng-container *ngIf="!minimal">
+        <h3 class="top-bar">
+            <a class="iconfont icon-close icon-grey" [class.disabled]="counter != 0" title="关闭" (click)="close()"></a>
+            <a class="iconfont icon-del icon-grey" title="最小化" (click)="minimize($event)"></a>
+            文件上传
+        </h3>
+        <div class="flex-1">
+            <div virtualScroller>
+                <div *ngFor="let mission of missionQuery" class="mission-item">
+                    <h3>{{mission.filename}}</h3>
+                    <!-- <progress class="progress" [attr.value]="mission.loaded" [attr.max]="mission.total"></progress> -->
+                    <div class="progress">
+                        <span class="progress-thumb" [class.faild]="mission.status == 300 || mission.status == 500" [style.width]="mission.progress"></span>
+                    </div>
+                    <div class="status-bar">
+                        <a class="iconfont icon-close icon-red" title="中断" (click)="closeMission(mission)"></a>
+                        <span class="upload-status">{{statusTips[mission.status]}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,9 @@
+<div class="tooltip-wrap">
+    <ng-content></ng-content>
+    <div *ngIf="_visible" class="tooltip-content tc" [class.fixed]="_fixed" [style.left]="_fixed ? _fixPos.left : ''" [style.top]="_fixed ? _fixPos.top : ''">
+        <div class="tooltip-inner">
+            <ng-container *ngIf="!innerTemplate">{{title}}</ng-container>
+            <ng-template *ngIf="innerTemplate" [ngTemplateOutlet]="innerTemplate"></ng-template>
+        </div>
+    </div>
+</div>

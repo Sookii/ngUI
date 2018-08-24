@@ -1,0 +1,62 @@
+.tooltip-wrap {
+    position: relative;
+    display: inline-block;
+    .tooltip-content {
+        position: absolute;
+
+        &.fixed {
+            position: fixed;
+        }
+
+        &.tc {
+            left: 50%;
+            top: 0;
+            transform: translate(-50%, -100%);
+            padding-bottom: 8px;
+            &::after{
+                left: 50%;
+                transform: translate(-50%, 0);
+            }
+        }
+        &.tl {
+            left: 0%;
+            top: 0;
+            transform: translate(0, -100%);
+            padding-bottom: 8px;
+            &::after{
+                left: 20px;
+                transform: translate(-50%, 0);
+            }
+        }
+        &.tr {
+            right: 0;
+            top: 0;
+            transform: translate(0, -100%);
+            padding-bottom: 8px;
+            &::after{
+                right: 20px;
+                transform: translate(50%, 0);
+            }
+        }
+
+        &::after{
+            content: " ";
+            position: absolute;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid rgba(0, 0, 0, .66);
+        }
+        .tooltip-inner {
+            min-width: 60px;
+            max-width: 180px;
+            padding: 5px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, .66);
+            color: #fff;
+            font-size: 13px;
+            text-align: center;
+        }
+    }
+}
+
+//TODO-- rt rc rb br bc bl lb lc lt

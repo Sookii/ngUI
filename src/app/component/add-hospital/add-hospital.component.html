@@ -1,0 +1,90 @@
+<div class="popup" @fadeInOut *ngIf="_visible">
+    <div draggable class="popup-dialog">
+        <div id="dragTarget" class="popup-header">
+            <a class="close iconfont icon-close" (click)="close()"></a>
+            添加医院
+        </div>
+        <div class="popup-content">
+            <div class="genetate-form">
+                <div class="row">
+                    <label class="col-3">
+                        <em>*</em>医院名称：</label>
+                    <input autocomplete type="text" class="ip-input col-9" [ngModel]="hospitalInfo.name" (ngModelChange)="checkHospitalChange($event)"
+                        (selected)="selectHospital($event)" (getAsyncList)="getHospitalList($event)" [dataList]="branchs">
+                        <span *ngIf="duplicate" class="offset-3 warning-tips">当前已包含该医院</span>
+                </div>
+                <!--是否分院 attr branch, parent TODO-->
+                <div class="row">
+                    <label class="col-3">
+                        <em>*</em>是否为分院：</label>
+                    <ip-select [options]="branchStateSelectCfg" [initItem]="hospitalInfo.branch" [selectListData]="isBranchState" (selecting)="hospitalInfo.branch = $event.id"></ip-select>
+                    <ng-container *ngIf="hospitalInfo.branch">
+                        <label>
+                            <em>*</em>从属总院：</label>
+                        <ip-select [options]="branchsSelectCfg" [initItem]="hospitalInfo.parent" [selectListData]="branchs" (query)="getHospitalList($event, true)"
+                            (selecting)="hospitalInfo.parent = $event;"></ip-select>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <label class="col-3">医院简称：</label>
+                    <input type="text" class="ip-input" [(ngModel)]="hospitalInfo.sortName">
+                </div>
+                <div class="row">
+                    <label class="col-3">
+                        <em>*</em>所属地区：</label>
+                    <cascader class="col-9" [options]="regionOpt" [initValue]="hospitalInfo.regionValue" [cascaderTree]="cascaderList" [cascaderChildren]="cascaderChildren"
+                        (getNextLevel)="getRegionTree($event)" (outputResult)="getAreaRegion($event)"></cascader>
+                </div>
+                <div class="row">
+                    <label class="col-3">
+                        <em>*</em>医院类型：</label>
+                    <ip-select [options]="ezSelectCfg" [initItem]="hospitalInfo.genre" [selectListData]="hospitalTypes" (selecting)="hospitalInfo.genre = $event;"></ip-select>
+                </div>
+                <ng-container *ngIf="hospitalInfo.genre == '医院'">
+                    <div class="row">
+                        <label class="col-3">
+                            <em>*</em>医院性质：</label>
+                        <ip-select [options]="ezSelectCfg" [initItem]="hospitalInfo.nature" [selectListData]="hospitalNatures" (selecting)="hospitalInfo.nature = $event;"></ip-select>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">
+                            医院类别：</label>
+                        <ip-select [options]="ezClearableCfg" [initItem]="hospitalInfo.category" [selectListData]="hospitalCategorys" (selecting)="hospitalInfo.category = $event;"></ip-select>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">
+                            <em>*</em>医院级别：</label>
+                        <ip-select [options]="ezSelectCfg" [initItem]="hospitalInfo.level" [selectListData]="hospitalLevels" (selecting)="hospitalInfo.level = $event;"></ip-select>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">
+                            <em>*</em>行政级别：</label>
+                        <ip-select class="col-9" [options]="ezSelectCfg" [initItem]="hospitalInfo.type" [selectListData]="addadminLevelList" (selecting)="hospitalInfo.type = $event;"></ip-select>
+                    </div>
+                    <!--HIS 厂商 TODO-->
+                    <div class="row">
+                        <label class="col-3">
+                            <em>*</em>HIS厂商：</label>
+                        <ip-select [initItem]="hospitalInfo.hisManufacturer" [selectListData]="HISVendorList" (selecting)="hospitalInfo.hisManufacturer = $event.name;"></ip-select>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">编制床位数：</label>
+                        <input type="text" class="ip-input" [(ngModel)]="hospitalInfo.prepareBedsNum">
+                    </div>
+                </ng-container>
+                <div class="row">
+                    <label class="col-3">法人代表：</label>
+                    <input type="text" class="ip-input" [(ngModel)]="hospitalInfo.legalRepresent">
+                </div>
+            </div>
+        </div>
+        <div class="popup-footer btns-collection">
+            <button class="ip-btn ip-btn-primary" (click)="submit()">
+                <span>确定</span>
+            </button>
+            <button class="ip-btn ip-btn-outline-default" (click)="close()">
+                <span>取消</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+.popup-dialog {
+    height: auto;
+    .popup-content {
+        overflow: visible;
+    }
+}
+.genetate-form {
+    padding: 10px;
+    .row {
+        margin-bottom: 10px;
+        align-items: center;
+        label {
+            display: inline-block;
+            width: 90px;
+            text-align: right;
+            em {
+                color: red;
+            }
+        }
+        input {
+            width: 160px;
+        }
+        .warning-tips {
+            margin-top: 5px;
+            color: red;
+        }
+    }
+}

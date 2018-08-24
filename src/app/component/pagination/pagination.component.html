@@ -1,0 +1,38 @@
+<div class="pagination">
+    <div class="pagesize-info" style="display: inline-block;">
+        <span>共 <em>{{pagi.recordCount}}</em> 条</span>
+        <span><em>{{pagi.pageCount}}</em> 页</span>
+        <ip-select [options]="pagesizeCfg" [initItem]="pagi.pageSize" [selectListData]="pagesizes" (selecting)="onChangePageSize($event)"></ip-select>
+        条/页
+    </div>
+    <div style="float: right; font-size: 0;">
+        <button class="ip-btn ip-btn-sm ip-btn-outline-default" [disabled]="pagi.currentPage == 1" (click)="prePage()">
+            <span class="iconfont icon-arrow-left"></span>
+        </button>
+
+        <span class="ml5 mr5" style="color:#999;" *ngIf="pagi.pageCount - 3 > 0 ">...</span>
+        <button *ngIf="pagi.currentPage - 2 > 0" class="ip-btn ip-btn-sm ip-btn-primary " (click)="specificPage(pagi.currentPage - 2)">{{pagi.currentPage - 2}}</button>
+        <button *ngIf="pagi.currentPage - 1 > 0" class="ip-btn ip-btn-sm ip-btn-primary " (click)="specificPage(pagi.currentPage - 1)">{{pagi.currentPage - 1}}</button>
+        <button class="ip-btn ip-btn-sm ip-btn-primary active">{{pagi.currentPage}}</button>
+
+        <button *ngIf="pagi.pageCount>1 && (pagi.pageCount - pagi.currentPage > 0) && (pagi.currentPage < pagi.pageCount) && (pagi.currentPage + 1 <= pagi.pageCount)"
+            class="ip-btn ip-btn-sm ip-btn-primary " (click)="specificPage(pagi.currentPage + 1)">{{pagi.currentPage + 1}}</button>
+
+        <button *ngIf="(pagi.pageCount - pagi.currentPage > 1) && (pagi.currentPage < pagi.pageCount) && (pagi.currentPage + 2 < pagi.pageCount)"
+            class="ip-btn ip-btn-sm ip-btn-primary " (click)="specificPage(pagi.currentPage + 2)">{{pagi.currentPage + 2}}</button>
+        <span class="ml5 mr5" style="color:#999;" *ngIf="pagi.pageCount - pagi.currentPage > 2">...</span>
+
+        <button class="ip-btn ip-btn-sm ip-btn-outline-default" [disabled]="pagi.currentPage >= pagi.pageCount" (click)="nextPage()">
+            <span class="iconfont icon-arrow-right"></span>
+        </button>
+
+        <span class="ml10">跳至</span>
+        <input #blinkPageInput type="number" min="1" class="ip-input ip-input-sm" style="width: 50px;" [(ngModel)]="pagi.blinkPage"
+            (keyup.enter)="specificPage()">
+        <span>页</span>
+
+        <button class="ip-btn ip-btn-sm ip-btn-outline-default  ml5" (click)="specificPage()">
+            <span>跳转</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<!--line mode-->
+<ng-container *ngIf="progressType == 'line'">
+    <div class="progress-bar-wrapper">
+        <div class="progress-bar" [style.height.px]="strokeWidth">
+            <div class="progress-bar-inner" [style.color]="statusColorMap[status]" [style.width.%]="percent" [style.height.px]="strokeWidth"></div>
+        </div>
+        <div class="progress-text">
+            <span *ngIf="status == 'active'">{{percent}}%</span>
+            <i *ngIf="status == 'success'" class="iconfont icon-check icon-green"></i>
+            <i *ngIf="status == 'exception'" class="iconfont icon-close icon-red"></i>
+        </div>
+    </div>
+</ng-container>
+<!--circle mode-->
+<ng-container *ngIf="progressType == 'circle'">
+    <div class="progress-circle" [style.width.px]="cpWidth" [style.height.px]="cpWidth" [style.fontSize.px]="cpWidth*0.15+6">
+        <svg viewBox="0 0 100 100">
+            <path fill-opacity="0" stroke="#f3f3f3" [attr.stroke-width.px]="strokeWidth" [attr.d]="pathString" [ngStyle]="trailPathStyle"
+            />
+            <path fill-opacity="0" [attr.stroke]="statusColorMap[status]" [attr.stroke-width.px]="strokeWidth" stroke-linecap="round"
+                [attr.d]="pathString" [ngStyle]="strokePathStyle" />
+        </svg>
+        <div class="progress-text">
+            <span *ngIf="status == 'active'">{{percent}}%</span>
+            <i *ngIf="status == 'success'" class="iconfont icon-check icon-green"></i>
+            <i *ngIf="status == 'exception'" class="iconfont icon-close icon-red"></i>
+        </div>
+    </div>
+</ng-container>

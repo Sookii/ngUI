@@ -1,0 +1,27 @@
+<ng-container *ngIf="renderType == 1">
+    <div class="cascader" (click)="active = !active;">
+        <div class="label ip-input" [title]="_curResultStr">
+            {{_curResultStr}}
+            <i *ngIf="_curResultStr" class="iconfont icon-close-fill icon-gray" (click)="clear($event)"></i>
+        </div>
+        <div class="cascader-list" [@slideInOut] *ngIf="active">
+            <ul *ngFor="let cascaderList of _uiList;let idx = index;">
+                <li *ngFor="let item of cascaderList" [class.expand]="item.hasChildren" [class.checked]="inCurResult(item, idx)" [class.hang-up]="hangUp && _curTarget == item" (click)="checkItem(item, idx, $event)"
+                    [title]="item[_options.key]">
+                    {{item[_options.key]}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="renderType == 2">
+    <div class="cascader-list" [@slideInOut] *ngIf="active">
+        <ul *ngFor="let cascaderList of _uiList;let idx = index;">
+            <li *ngFor="let item of cascaderList" [class.expand]="item.hasChildren" [class.checked]="inCurResult(item)" [class.hang-up]="hangUp && _curTarget == item" (click)="checkItem(item, idx, $event)"
+                [title]="item[_options.key]">
+                {{item[_options.key]}}
+            </li>
+        </ul>
+    </div>
+</ng-container>

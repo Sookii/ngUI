@@ -1,0 +1,17 @@
+<div class="select-list flex flex-column" #selectListElement style="z-index:1001;" [style.position]="isFixed ? 'fixed' : 'absolute'"
+    [style.top]="!reverseDirection ? (isFixed ? position.top : position.height) : ''" [style.bottom]="reverseDirection ? position.bottom : ''"
+    [style.left]="isFixed ? position.left : 0" [style.width]="position.width">
+    <div *ngIf="options.searchInline" style="flex-shrink: 0;padding: 5px;border-bottom: 1px solid #ddd;">
+        <input type="text" class="ip-input" [(ngModel)]="queryString" (keyup)="typing()" placeholder="搜索">
+    </div>
+    <div class="flex-1" style="overflow: auto">
+        <ul class="list">
+            <li *ngIf="!selectListData || selectListData.length <= 0">暂无数据</li>
+            <li (click)="_selectData($event, item)" #selectContent *ngFor="let item of selectListData" [class.checked]="containsIn(item)" [class.disabled]="item.readonly"
+                [attr.title]="options.ez ? item : item[_that.options.id]">
+                <i class="iconfont icon-check icon-blue" *ngIf="containsIn(item)"></i>
+                {{ options.ez ? item : item[_that.options.id] }}
+            </li>
+        </ul>
+    </div>
+</div>

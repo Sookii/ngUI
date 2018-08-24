@@ -1,0 +1,5 @@
+<label class="ip-radio-wrapper">
+    <input #radioEl type="radio" [name]="options.radioName || '_name'" [checked]="isChecked" [disabled]="disabled" (change)="check(radioEl.checked)">
+    <span>{{labelText}}</span>
+</label>
+

@@ -1,0 +1,71 @@
+<div class="calendar" [hidden]="!afterCalc">
+    <div class="calendar-date-panel">
+        <div class="calendar-header">
+            <div class="calendar-prev-year-btn" (click)="prevYear()">
+                <i class="iconfont icon-left-sorting"></i>
+            </div>
+            <div *ngIf="!monthPicker" class="calendar-prev-month-btn" (click)="prevMonth()">
+                <i class="iconfont icon-arrow-left"></i>
+            </div>
+
+            <span class="calendar-header-year" (click)="pannelType = (pannelType == 3 ? 1 : 3)">{{year}}年</span>
+            <span *ngIf="!monthPicker" class="calendar-header-month" (click)="pannelType = (pannelType == 2 ? 1 : 2)">{{month}}月</span>
+
+            <div *ngIf="!monthPicker" class="calendar-next-month-btn" (click)="nextMonth()">
+                <i class="iconfont icon-arrow-right"></i>
+            </div>
+            <div class="calendar-next-year-btn" (click)="nextYear()">
+                <i class="iconfont icon-right-sorting"></i>
+            </div>
+        </div>
+        <div class="calendar-body">
+            <table class="calendar-days" *ngIf="pannelType == 1">
+                <thead>
+                    <tr>
+                        <th>日</th>
+                        <th>一</th>
+                        <th>二</th>
+                        <th>三</th>
+                        <th>四</th>
+                        <th>五</th>
+                        <th>六</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of days">
+                        <ng-container *ngFor="let day of item">
+                            <td *ngIf="day.disable" class="disable">{{day.day}}</td>
+                            <td *ngIf="!day.disable" [class.checked]="day.dateStr == dateStr" [class.today]="day.dateStr == todayStr" [class.not-this-month]="day.type != 'curr'"
+                                (click)="selectDay(day, $event)">{{day.day}}</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="calendar-months" *ngIf="pannelType == 2">
+                <tr *ngFor="let item of months;">
+                    <td *ngFor="let _month of item" (click)="setMonth(_month.id, $event)">{{_month.name}}</td>
+                </tr>
+            </table>
+            <table class="calendar-years" *ngIf="pannelType == 3">
+                <tr *ngFor="let item of years;">
+                    <td *ngFor="let _year of item" (click)="setYear(_year, $event)" [class.not-this-month]='_year.target'>{{_year.year}}</td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="exact" class="calendar-footer">
+            <div class="time">
+                <input #hourIpt class="ip-input" type="number" [(ngModel)]="hour" (focus)="hourIpt.select()" (blur)="validate(hourIpt.value, 'hour')" placeholder="小时">
+                <span>:</span>
+                <input #minsIpt class="ip-input" type="number" [(ngModel)]="mins" (focus)="minsIpt.select()" (blur)="validate(minsIpt.value, 'mins')" placeholder="分钟">
+                <span>:</span>
+                <input #secondsIpt class="ip-input" type="number" [(ngModel)]="seconds" (focus)="secondsIpt.select()" (blur)="validate(secondsIpt.value, 'seconds')" placeholder="秒">
+            </div>
+            <button class="ip-btn ip-btn-outline-default" (click)="today()">
+                <span>今天</span>
+            </button>
+            <button class="ip-btn ip-btn-primary" (click)="confirm()">
+                <span>确定</span>
+            </button>
+        </div>
+    </div>
+</div>

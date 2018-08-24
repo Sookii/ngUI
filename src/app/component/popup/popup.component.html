@@ -1,0 +1,20 @@
+<div class="popup" @fadeInOut *ngIf="_visible">
+    <div draggable class="popup-dialog" [class.popup-iframe-box]="options.setHeight" id="popupSize" [style.width]="options.width" [style.height]="options.height">
+        <div id="dragTarget" class="popup-header">
+            <a class="close iconfont icon-close" (click)="close()"></a>
+            {{options.title}}
+        </div>
+        <div class="popup-content">
+            <ng-template #tpl [ngTemplateOutlet]="popupTemplate" [ngTemplateOutletContext]="{ $implicit: popupData }"></ng-template>
+        </div>
+        <div class="popup-footer" *ngIf="!options.customFooter">
+            <button class="ip-btn ip-btn-primary" (click)="submit()">
+                <span>确定</span>
+            </button>
+            <button class="ip-btn ip-btn-outline-default" (click)="close()">
+                <span>取消</span>
+            </button>
+        </div>
+        <ng-content *ngIf="options.customFooter"></ng-content>
+    </div>
+</div>

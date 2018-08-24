@@ -1,0 +1,4 @@
+<label class="ip-checkbox-wrapper">
+    <input #checkboxEl type="checkbox" [checked]="isChecked" [disabled]="isDisabled" (change)="check(checkboxEl.checked)">
+    <span>{{labelText}}</span>
+</label>
